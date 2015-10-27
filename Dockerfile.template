@@ -1,3 +1,4 @@
+#FROM resin/%%RESIN_ARCH%%-debian
 FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0
 MAINTAINER Shaun Mulligan <shaun@resin.io>
 
@@ -21,7 +22,7 @@ RUN mkdir /var/run/sshd \
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
 
-COPY start.sh /start.sh
+COPY /src/start.sh /start.sh
 
 
 COPY src/package.json /usr/src/app/package.json
