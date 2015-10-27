@@ -11,12 +11,10 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({
     show: false,
     resizable: false,
-    x: 0,
-    y: 0,
     width: size.width,
     height: size.height,
   });
-
+  console.log('width: ' + size.width + ' height: ' + size.height);
   mainWindow.loadUrl('file://' + __dirname + '/index.html');
   mainWindow.on('closed', function() {
     mainWindow = null;
