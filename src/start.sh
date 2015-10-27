@@ -9,4 +9,4 @@ if [ "$INITSYSTEM" != "on" ]; then
   /usr/sbin/sshd -p 80 &
 fi
 
-npm start
+xinit /usr/src/app/launch_app.sh
