@@ -1,8 +1,15 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-python
+FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0
 MAINTAINER Shaun Mulligan <shaun@resin.io>
 
-RUN apt-get update && apt-get install -yq \
-    openssh-server && \
+ENV DEBIAN_FRONTEND noninteractive
+RUN apt-get update && apt-get install -yq --no-install-recommends \
+    openssh-server \
+    xserver-xorg-core \
+    xorg \
+    libgtk2.0-0 \
+    libnotify4 \
+    libgconf2-4 \
+    libnss3 && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd \
@@ -14,5 +21,11 @@ RUN mkdir /var/run/sshd \
 ENV INITSYSTEM on
 COPY start.sh /start.sh
 COPY src/ /usr/src/app
+
+RUN npm install electron-prebuilt -g
+
+RUN git clone https://github.com/atom/electron-quick-start && \
+    cd electron-quick-start && \
+    npm install
 
 CMD ["bash", "/start.sh"]
