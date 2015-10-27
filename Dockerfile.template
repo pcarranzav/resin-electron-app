@@ -9,7 +9,8 @@ RUN apt-get update && apt-get install -yq --no-install-recommends \
     libgtk2.0-0 \
     libnotify4 \
     libgconf2-4 \
-    libnss3 && \
+    libnss3
+    matchbox && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd \
@@ -18,14 +19,19 @@ RUN mkdir /var/run/sshd \
     # SSH login fix. Otherwise user is kicked off after login
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-ENV INITSYSTEM on
+
 COPY start.sh /start.sh
-COPY src/ /usr/src/app
 
-RUN npm install electron-prebuilt -g
 
-RUN git clone https://github.com/atom/electron-quick-start && \
-    cd electron-quick-start && \
-    npm install
+COPY src/package.json /usr/src/app/package.json
+RUN cd /usr/src/app/ && npm install && npm cache clean && rm -rf /tmp/*
+
+RUN mkdir -p /usr/src/app && ln -s /usr/src/app /app
+WORKDIR /usr/src/app
+COPY /src/package.json /usr/src/app/package.json
+RUN JOBS=MAX npm install --unsafe-perm
+
+COPY /src /usr/src/app
+ENV INITSYSTEM on
 
 CMD ["bash", "/start.sh"]

@@ -9,4 +9,4 @@ if [ "$INITSYSTEM" != "on" ]; then
   /usr/sbin/sshd -p 80 &
 fi
 
-python /usr/src/app/main.py
+npm start
