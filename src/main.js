@@ -28,6 +28,7 @@ app.on('ready', function() {
     resizable: false,
     width: size.width,
     height: size.height,
+    kiosk: true,
   });
 
   // and load the index.html of the app.
