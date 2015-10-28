@@ -36,4 +36,5 @@ RUN JOBS=MAX npm install --unsafe-perm
 COPY /src /usr/src/app
 ENV INITSYSTEM on
 
+RUN apt-get update && apt-get install gpu-viv-bin-fb-dev
 CMD ["bash", "/start.sh"]
