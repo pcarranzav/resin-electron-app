@@ -1,6 +1,5 @@
-#FROM resin/%%RESIN_ARCH%%-blabla
 FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0
-MAINTAINER Shaun Mulligan <shaun@resin.io>
+MAINTAINER Pablo Carranza Velez <pablo@resin.io>
 
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update && apt-get install -yq --no-install-recommends \
@@ -21,19 +20,18 @@ RUN mkdir /var/run/sshd \
     # SSH login fix. Otherwise user is kicked off after login
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
+RUN npm install -g --unsafe-perm grunt-cli
 
-COPY /src/start.sh /start.sh
-
-
-COPY src/package.json /usr/src/app/package.json
-RUN cd /usr/src/app/ && npm install && npm cache clean && rm -rf /tmp/*
+COPY src/start.sh /start.sh
 
 RUN mkdir -p /usr/src/app && ln -s /usr/src/app /app
 WORKDIR /usr/src/app
-COPY /src/package.json /usr/src/app/package.json
+COPY src/package.json /usr/src/app/package.json
 RUN JOBS=MAX npm install --unsafe-perm
 
-COPY /src /usr/src/app
+COPY src /usr/src/app
+RUN cd src && grunt build
+
 ENV INITSYSTEM on
 
 CMD ["bash", "/start.sh"]

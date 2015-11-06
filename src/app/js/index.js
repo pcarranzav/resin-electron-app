@@ -1,3 +1,4 @@
+/*
 'use strict';
 
 var soundButtons = document.querySelectorAll('.button-sound');
@@ -18,3 +19,4 @@ function prepareButton(buttonEl, soundName) {
         audio.play();
     });
 }
+*/

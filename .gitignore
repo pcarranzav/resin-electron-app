@@ -1,0 +1,7 @@
+.cache.json
+src/app/bower_components
+src/node_modules
+src/.bower-cache
+src/.bower-registry
+src/.bower-tmp
+src/build

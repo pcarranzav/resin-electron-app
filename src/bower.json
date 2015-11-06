@@ -1,0 +1,28 @@
+{
+  "name": "resin-electron-kiosk",
+  "version": "1.0.0",
+  "homepage": "https://github.com/pcarranzav/resin-electron-app",
+  "authors": [
+    "Pablo Carranza Vélez <pablocarranza@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "app/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "requirejs": "~2.1.20",
+    "require-cs": "resin-io/require-cs",
+    "coffee-script": "~1.10.0",
+    "lodash": "~3.10.1",
+    "bluebird": "~3.0.5",
+    "bootstrap": "~3.3.5",
+    "almond": "~0.3.1",
+    "angular-bootstrap": "~0.14.3"
+  }
+}
