@@ -15,7 +15,7 @@ body {
     height: 368px;
 }
 
-#main h1 {
+#main .logo {
     color: #fff;
     padding-right: 6px;
     padding-top: 5px;
@@ -23,86 +23,72 @@ body {
     /*text-indent: -10000px;*/
 }
 
-#main h1 img {
-    height: 31px;
+#main .logo img {
     width: 195px;
+    vertical-align: top
 }
 
 .buttons {
-    padding: 0 20px;
+    height: 70px;
 }
 
 .buttons > div {
     text-align: center;
 }
 
-.button-sound {
-    background-color: #0C7CA2;
-    border-radius: 100%;
-    cursor: pointer;
-    display: inline-block;
-    height: 24px;
-    margin-top: 57px;
-    position: absolute;
-    width: 24px;
-    box-shadow: 0 4px 0 #044D7F;
-    -webkit-app-region: no-drag;
+/* Base for label styling */
+[type="checkbox"]:not(:checked),
+[type="checkbox"]:checked {
+  position: absolute;
+  left: -9999px;
+  
+}
+[type="checkbox"]:not(:checked) + label,
+[type="checkbox"]:checked + label {
+  padding-left: 0px;
+  cursor: pointer;
+  margin-right: 0px;
 }
 
-.button-sound:hover {
-    box-shadow: 0 2px 0 #044D7F;
-    top: 2px;
+/* checkbox aspect */
+[type="checkbox"]:not(:checked) + label:before,
+[type="checkbox"]:checked + label:before {
+  content: '';
+  position: absolute;
+  left:0; top: 0px;
+  width: 115px; height: 60px;
+  border: 1px solid #aaa;
+  
+  border-radius: 5px;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,.3)
+    
+}
+/* checked mark aspect */
+[type="checkbox"]:not(:checked) + label:after,
+[type="checkbox"]:checked + label:after {
+  content: '';
 }
 
-.button-sound:hover > span {
-    top: -42px;
+[type="checkbox"]:checked + label:before {
+  background: #0C7CA2;
+  transition: all .2s;
+}
+/* checked mark aspect changes */
+[type="checkbox"]:not(:checked) + label:after {
+  opacity: 0;
+  transform: scale(0);
+  display: inline;
+}
+[type="checkbox"]:checked + label:after {
+  opacity: 1;
+  transform: scale(1);
+  display: inline;
 }
 
-.button-sound:active {
-    box-shadow: 0 0 0 #044D7F;
-    top: 5px;
+.beatbox {
 }
 
-@import (inline) "../bower_components/bootstrap/dist/css/bootstrap.min.css";
-
-.button-sound:active > span {
-    top: -45px;
+.beatmark {
+	text-align: center;
+	padding-right: 38px;
 }
-
-.button-icon {
-    background-size: 30px 30px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    height: 50px;
-    left: -2px;
-    position: absolute;
-    top: -40px;
-    width: 30px;
-    -webkit-app-region: no-drag;
-}
-
-.settings,
-.close {
-    cursor: pointer;
-    display: inline-block;
-    height: 32px;
-    position: absolute;
-    text-indent: -10000px;
-    top: 6px;
-    width: 32px;
-    z-index: 1;
-
-    -webkit-app-region: no-drag;
-}
-
-/*.settings {
-    background: transparent url('../img/settings.png') no-repeat 4px 4px;
-    background-size: 24px 24px;
-    right: 38px;
-}
-
-.close {
-    background: transparent url('../img/close.png') no-repeat 4px 4px;
-    background-size: 24px 24px;
-    right: 6px;
-}*/

@@ -32,11 +32,11 @@ require.config({
 
 require([ 'angular', 'cs!./app' ], function (angular, app) {
 	if (document.readyState === 'complete') {
-		angular.bootstrap(document, [ 'app' ])
+		angular.bootstrap(document, [ 'drumApp' ])
 	} else {
 		// Not ready yet.
 		angular.element(document).ready(function () {
-			angular.bootstrap(document, [ 'app' ])
+			angular.bootstrap(document, [ 'drumApp' ])
 		})
 	}
 })

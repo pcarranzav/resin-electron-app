@@ -10,7 +10,7 @@ module.exports = (grunt) ->
 				files: [
 					expand: true
 					cwd: 'app'
-					src: '**/*.{html,wav,png,jpg,jpeg,gif,swf,svg,eot,ttf,otf,woff,woff2}'
+					src: '**/*.{css,html,wav,png,jpg,jpeg,gif,swf,svg,eot,ttf,otf,woff,woff2}'
 					dest: 'build'
 				]
 
@@ -79,7 +79,7 @@ module.exports = (grunt) ->
 		'less'
 
 		'requirejs'
-		'uglify'
+
 
 		'processhtml'
 	]

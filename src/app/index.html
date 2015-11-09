@@ -1,45 +1,37 @@
 <!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sound Machine</title>
-    <link rel="stylesheet" href="main.css">
-</head>
-<body>
-<div class="settings">Settings</div>
-<div class="close">Close</div>
-<div id="main" class="container-fluid">
-    <div class="row">
-        <div class="col-md-4">
-          <h1>
-              <img src="img/logo.png"/>
-          </h1>
-        </div>
-    </div>
-    <div class="row buttons">
-        <div class="col-xs-2">
-            <div class="button-sound" data-sound="ba-dum-tsss">
-                <span class="button-icon"></span>
+    <head>
+        <meta charset="UTF-8">
+        <title>Sound Machine</title>
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="main.css">
+    </head>
+    <body>
+        <div id="main" class="container-fluid" ng-controller="DrumMachineController">
+            <div class="row">
+                <div class="col-xs-4">
+                  <div class="logo">
+                      <img src="img/logo.png"/>
+                  </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div ng-repeat="beat in beatMarker" class="col-xs-3 beatmark">
+                        <span ng-class="beat.isActive ? 'glyphicon glyphicon-star' : 'glyphicon glyphicon-star-empty'"> </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row buttons" ng-repeat="sound in sounds">
+                <div class="col-xs-10 col-xs-offset-1">
+                    <div ng-repeat="slot in sound.playQueue" class="col-xs-3 beatbox">
+                        <input type="checkbox" ng-model="slot.isActive" id="{{ $index }}-{{ sound.filename }}" />
+                        <label for="{{ $index }}-{{ sound.filename }}"></label>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="col-xs-2">
-            <div class="button-sound" ng-click="playMoney()" data-sound="money">
-                <span class="button-icon"></span>
-            </div>
-        </div>
-        <div class="col-xs-2">
-            <div class="button-sound active" data-sound="ba-dum-tsss">
-                <span class="button-icon"></span>
-            </div>
-        </div>
-        <div class="col-xs-2">
-            <div class="button-sound" data-sound="money">
-                <span class="button-icon"></span>
-            </div>
-        </div>
-    </div>
-</div>
 
-<script src="main.js"></script>
-</body>
+        <script src="main.js"></script>
+    </body>
 </html>
