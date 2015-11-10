@@ -26,7 +26,7 @@ COPY src/start.sh /start.sh
 
 RUN mkdir -p /usr/src/app && ln -s /usr/src/app /app
 WORKDIR /usr/src/app
-COPY src/package.json src/bower.json /usr/src/app/
+COPY src/package.json src/bower.json src/.bowerrc /usr/src/app/
 RUN JOBS=MAX npm install --unsafe-perm
 
 COPY src /usr/src/app
