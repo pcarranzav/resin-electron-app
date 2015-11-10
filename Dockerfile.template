@@ -1,37 +1,44 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0
+FROM resin/%%RESIN_MACHINE_NAME%%-node:4.0.0-slim
 MAINTAINER Pablo Carranza Velez <pablo@resin.io>
 
 ENV DEBIAN_FRONTEND noninteractive
-RUN apt-get update && apt-get install -yq --no-install-recommends \
-    openssh-server \
-    xserver-xorg-core \
-    xorg \
-    libgtk2.0-0 \
-    libnotify4 \
-    libgconf2-4 \
-    libnss3 \
-    libasound2 \
-    matchbox && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
-
-RUN mkdir /var/run/sshd \
+RUN apt-get update \
+    && apt-get install -yq --no-install-recommends \
+        autoconf \
+        build-essential \
+        git \
+        openssh-server \
+        xserver-xorg-core \
+        xorg \
+        libgtk2.0-0 \
+        libnotify4 \
+        libgconf2-4 \
+        libnss3 \
+        libasound2 \
+        matchbox \
+    && apt-get autoremove -qqy \
+    && apt-get clean && rm -rf /var/lib/apt/lists/* \
+    && mkdir /var/run/sshd \
     && echo 'root:resin' | chpasswd \
     && sed -i 's/PermitRootLogin without-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
-    # SSH login fix. Otherwise user is kicked off after login
     && sed 's@session\s*required\s*pam_loginuid.so@session optional pam_loginuid.so@g' -i /etc/pam.d/sshd
 
-RUN npm install -g --unsafe-perm grunt-cli
-
-COPY src/start.sh /start.sh
+RUN npm install -g --unsafe-perm grunt-cli \
+    && npm dedupe \
+    && npm cache clean
 
 RUN mkdir -p /usr/src/app && ln -s /usr/src/app /app
 WORKDIR /usr/src/app
 COPY src/package.json src/bower.json src/.bowerrc /usr/src/app/
-RUN JOBS=MAX npm install --unsafe-perm
+RUN JOBS=MAX npm install --unsafe-perm \
+    && npm dedupe \
+    && npm cache clean
 
 COPY src /usr/src/app
 RUN cd /usr/src/app && grunt build
 
 ENV INITSYSTEM on
+
+COPY src/start.sh /start.sh
 
 CMD ["bash", "/start.sh"]
