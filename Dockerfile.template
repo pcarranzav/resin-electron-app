@@ -30,7 +30,7 @@ COPY src/package.json src/bower.json /usr/src/app/
 RUN JOBS=MAX npm install --unsafe-perm
 
 COPY src /usr/src/app
-RUN cd src && grunt build
+RUN cd /usr/src/app && grunt build
 
 ENV INITSYSTEM on
 
