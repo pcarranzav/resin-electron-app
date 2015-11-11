@@ -31,15 +31,6 @@ module.exports = (grunt) ->
 				files:
 					'build/main.css': 'app/css/main.less'
 
-		imagemin:
-			src:
-				files: [
-					expand: true
-					cwd: 'app/'
-					src: [ '**/*.{png,jpg,gif}', '!**/bower_components/**' ]
-					dest: 'app/'
-				]
-
 		requirejs:
 			main:
 				options:
