@@ -4,6 +4,8 @@ MAINTAINER Pablo Carranza Velez <pablo@resin.io>
 ENV DEBIAN_FRONTEND noninteractive
 RUN apt-get update \
     && apt-get install -yq --no-install-recommends \
+        alsa-utils \
+        xinput-calibrator \
         autoconf \
         build-essential \
         git \
